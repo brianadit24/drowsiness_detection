@@ -10,7 +10,7 @@ awake = vlc.MediaPlayer(
     "assets/Jojo's Bizarre Adventure- Awaken(Pillar Men Theme).mp3")
 
 cam_ids = [-1, 0, 1]
-for i in range(len(cam_ids)):
+for i in cam_ids:
     cap = cv2.VideoCapture(i)
     if cap.isOpened():
         break
