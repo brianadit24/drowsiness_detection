@@ -9,10 +9,12 @@ faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + path)
 awake = vlc.MediaPlayer(
     "assets/Jojo's Bizarre Adventure- Awaken(Pillar Men Theme).mp3")
 
-cap = cv2.VideoCapture(1)
-# Check Webcam can open correctly
-if not cap.isOpened():
-    cap = cv2.VideoCapture(0)
+cam_ids = [-1, 0, 1]
+for i in range(len(cam_ids)):
+    cap = cv2.VideoCapture(i)
+    if cap.isOpened():
+        break
+
 if not cap.isOpened():
     raise IOError("Cannot Open Webcam")
 
