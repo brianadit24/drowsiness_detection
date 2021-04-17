@@ -2,7 +2,11 @@
 
 ## This Model Build with MobileNetV2 Architecture base On Binary Classification Problem.
 
-### Please Install Packages:
-1. Tensorflow
-2. Numpy
-3. OpenCV
+### Install Packages:
+```python
+pip3 install -r requirements.txt
+```
+### Run Script on Linux:
+```bash
+python3 testing.py
+```
