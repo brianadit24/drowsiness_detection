@@ -24,7 +24,7 @@ while True:
         cv2.data.haarcascades + "haarcascade_eye.xml")
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     eyes = eye_cascade.detectMultiScale(gray, 1.1, 4)
-    eyes_roi = np.array([])
+
     for (x, y, w, h) in eyes:
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = frame[y:y+h, x:x+w]
@@ -34,19 +34,20 @@ while True:
         else:
             for (ex, ey, ew, eh) in eyess:
                 eyes_roi = roi_color[ey: ey+eh, ex:ex+ew]
-    if eyes_roi.size == 0:
-        continue
-    final_image = cv2.resize(eyes_roi, (224, 224))
-    final_image = np.expand_dims(final_image, axis=0)  # Butuh 4 Dimensi
-    final_image = final_image/255.0
+    try:
+        final_image = cv2.resize(eyes_roi, (224, 224))
+        final_image = np.expand_dims(final_image, axis=0)  # Butuh 4 Dimensi
+        final_image = final_image/255.0
 
-    Predictions = model.predict(final_image)
-    if (Predictions > 0.5):
-        status = "Open Eyes"
-        awake.stop()
-    else:
-        status = "Closed Eyes"
-        awake.play()
+        Predictions = model.predict(final_image)
+        if (Predictions > 0.5):
+            status = "Open Eyes"
+            awake.stop()
+        else:
+            status = "Closed Eyes"
+            awake.play()
+    except NameError:
+        continue
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     print(faceCascade.empty())
